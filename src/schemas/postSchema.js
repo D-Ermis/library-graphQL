@@ -18,12 +18,10 @@ export default gql`
   extend type Query {
     post(id: ID!): Post!
     posts: [Post!]!
-    postsAge(stock: Int): [Post]
   }
 
   extend type Mutation {
-    #createPost(title: String!, content: String!): Post!
     createPost(title: String!, subtitle: String!): Post!
-    updatePost(id: ID!, title: String, subtitle: String): Post!
+    updatePost(id: ID!, title: String!, subtitle: String!): Post!
   }
 `;

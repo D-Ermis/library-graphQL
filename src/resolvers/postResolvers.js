@@ -39,11 +39,20 @@ export default {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await postModel.findById({ _id: id });
+      const post = await postModel.findById({ _id: id }).exec();
 
-      post.title = title;
-      post.subtitle = subtitle;
-      return post;
+      let update = { 'post.title': title, 'post.subtitle': subtitle };
+      let post2 = await postModel.findByIdAndUpdate(
+        id,
+        {
+          $set: {
+            update
+          }
+        },
+        { new: true }
+      );
+
+      return post2;
     }
   },
   Post: {
