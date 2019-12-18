@@ -15,31 +15,34 @@ export default {
       }
       const posts = await postModel.find({ author: me.id }).exec();
       return posts;
-    },
-    // Testing
-    postsAge: async (
-      parent,
-      { stock },
-      { models: { postModel }, me },
-      info
-    ) => {
-      if (!me) {
-        throw new AuthenticationError('You are not authenticated');
-      }
-      return find(posts, { stock: stock > 5 });
     }
   },
   Mutation: {
     createPost: async (
       parent,
-      { title, content },
+      { title, subtitle },
       { models: { postModel }, me },
       info
     ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await postModel.create({ title, content, author: me.id });
+      const post = await postModel.create({ title, subtitle, author: me.id });
+      return post;
+    },
+    updatePost: async (
+      parent,
+      { id, title, subtitle },
+      { models: { postModel }, me },
+      info
+    ) => {
+      if (!me) {
+        throw new AuthenticationError('You are not authenticated');
+      }
+      const post = await postModel.findById({ _id: id });
+
+      post.title = title;
+      post.subtitle = subtitle;
       return post;
     }
   },

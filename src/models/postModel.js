@@ -31,7 +31,7 @@ const postSchema = new mongoose.Schema({
   },
   stock: {
     type: Number,
-    required: true
+    required: false
   },
   page: {
     type: Number,

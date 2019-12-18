@@ -4,9 +4,15 @@ export default gql`
   type Post {
     id: ID!
     title: String!
-    content: String!
+    subtitle: String!
+    #content: String!
     author: User!
-    stock: Int
+    editor: String!
+    format: String!
+    language: String!
+    cover: String!
+    stock: Int!
+    page: Int
   }
 
   extend type Query {
@@ -16,6 +22,8 @@ export default gql`
   }
 
   extend type Mutation {
-    createPost(title: String!, content: String!): Post!
+    #createPost(title: String!, content: String!): Post!
+    createPost(title: String!, subtitle: String!): Post!
+    updatePost(id: ID!, title: String, subtitle: String): Post!
   }
 `;
