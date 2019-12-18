@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema({
   title: {
@@ -7,27 +7,27 @@ const postSchema = new mongoose.Schema({
   },
   subtitle: {
     type: String,
-    required: false
+    required: false // True
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
+    ref: 'user'
   },
   editor: {
     type: String,
-    required: true
+    required: false // True
   },
   format: {
     type: String,
-    required: true
+    required: false // True
   },
   language: {
     type: String,
-    required: true
+    required: false // True
   },
   cover: {
     type: String,
-    required: true
+    required: false // True
   },
   stock: {
     type: Number,
@@ -39,6 +39,6 @@ const postSchema = new mongoose.Schema({
   }
 });
 
-const post = mongoose.model("post", postSchema);
+const post = mongoose.model('post', postSchema);
 
 export default post;

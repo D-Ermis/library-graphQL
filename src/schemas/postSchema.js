@@ -6,11 +6,13 @@ export default gql`
     title: String!
     content: String!
     author: User!
+    stock: Int
   }
 
   extend type Query {
     post(id: ID!): Post!
     posts: [Post!]!
+    postsAge(stock: Int): [Post]
   }
 
   extend type Mutation {

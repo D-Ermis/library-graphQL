@@ -15,6 +15,18 @@ export default {
       }
       const posts = await postModel.find({ author: me.id }).exec();
       return posts;
+    },
+    // Testing
+    postsAge: async (
+      parent,
+      { stock },
+      { models: { postModel }, me },
+      info
+    ) => {
+      if (!me) {
+        throw new AuthenticationError('You are not authenticated');
+      }
+      return find(posts, { stock: stock > 5 });
     }
   },
   Mutation: {
