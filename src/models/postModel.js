@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
   title: {
@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: "user"
   },
   editor: {
     type: String,
@@ -32,13 +32,9 @@ const postSchema = new mongoose.Schema({
   stock: {
     type: Number,
     required: false
-  },
-  page: {
-    type: Number,
-    required: false
   }
 });
 
-const post = mongoose.model('post', postSchema);
+const post = mongoose.model("post", postSchema);
 
 export default post;

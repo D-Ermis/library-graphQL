@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import { gql } from "apollo-server";
 
 export default gql`
   type Post {
@@ -12,7 +12,6 @@ export default gql`
     language: String!
     cover: String!
     stock: Int!
-    page: Int
   }
 
   extend type Query {
@@ -23,5 +22,6 @@ export default gql`
   extend type Mutation {
     createPost(title: String!, subtitle: String!): Post!
     updatePost(id: ID!, title: String!, subtitle: String!): Post!
+    deletePost(id: ID!): Post
   }
 `;
