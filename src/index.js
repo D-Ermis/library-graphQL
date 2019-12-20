@@ -45,6 +45,10 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path: '/graphql' });
 
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useCreateIndex', true);
+
 app.listen(5000, () => {
   mongoose.connect(
     'mongodb+srv://dev:dev@trouvkash-3px3t.mongodb.net/test?retryWrites=true&w=majority'

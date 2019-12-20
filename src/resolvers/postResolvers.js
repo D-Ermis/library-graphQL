@@ -48,11 +48,13 @@ export default {
           const post = postModel.create({
             isbn,
             title: book.title,
-            author: book.authors,
             format: book.printType,
             language: book.language
           });
-          return post;
+          post.then(function(result) {
+            console.log(post); // "Some User token"
+            return post;
+          });
         })
         .catch(function(err) {
           console.log('Book not found', err);

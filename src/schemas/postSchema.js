@@ -22,7 +22,7 @@ export default gql`
 
   extend type Mutation {
     createPost(title: String!, subtitle: String!): Post!
-    createPostByISBN(isbn: String!): Post!
+    createPostByISBN(isbn: String!): Post
     updatePost(id: ID!, title: String!, subtitle: String!): Post!
     deletePost(id: ID!): Post
   }
