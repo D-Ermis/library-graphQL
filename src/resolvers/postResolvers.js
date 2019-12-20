@@ -1,15 +1,6 @@
 import { AuthenticationError } from 'apollo-server';
 
-var isbn = require('node-isbn');
-
-isbn
-  .resolve('0735619670')
-  .then(function(book) {
-    console.log('Book found %j', book);
-  })
-  .catch(function(err) {
-    console.log('Book not found', err);
-  });
+const isbnGet = require('node-isbn');
 
 export default {
   Query: {
@@ -40,6 +31,32 @@ export default {
       }
       const post = await postModel.create({ title, subtitle, author: me.id });
       return post;
+    },
+    createPostByISBN: async (
+      parent,
+      { isbn },
+      { models: { postModel }, me },
+      info
+    ) => {
+      if (!me) {
+        throw new AuthenticationError('You are not authenticated');
+      }
+      isbnGet
+        .resolve(isbn)
+        .then(function(book) {
+          console.log(book.title);
+          const post = postModel.create({
+            isbn,
+            title: book.title,
+            author: book.authors,
+            format: book.printType,
+            language: book.language
+          });
+          return post;
+        })
+        .catch(function(err) {
+          console.log('Book not found', err);
+        });
     },
     updatePost: async (
       parent,

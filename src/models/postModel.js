@@ -1,9 +1,13 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema({
+  isbn: {
+    type: String,
+    required: false
+  },
   title: {
     type: String,
-    required: true
+    required: false
   },
   subtitle: {
     type: String,
@@ -11,7 +15,7 @@ const postSchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
+    ref: 'user'
   },
   editor: {
     type: String,
@@ -35,6 +39,6 @@ const postSchema = new mongoose.Schema({
   }
 });
 
-const post = mongoose.model("post", postSchema);
+const post = mongoose.model('post', postSchema);
 
 export default post;
