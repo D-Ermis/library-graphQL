@@ -16,14 +16,6 @@ export default gql`
     comments: [Comment]
   }
 
-  type Comment {
-    id: ID!
-    content: String!
-    author: User!
-    title: String
-    book: [Book]
-  }
-
   extend type Query {
     book(id: ID!): Book!
     books: [Book!]!

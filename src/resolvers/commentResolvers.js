@@ -2,55 +2,55 @@ import { AuthenticationError } from 'apollo-server';
 
 export default {
   Query: {
-    post: async (parent, { id }, { models: { commentModel }, me }, info) => {
+    comment: async (parent, { id }, { models: { commentModel }, me }, info) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await commentModel.findById({ _id: id }).exec();
-      return post;
+      const comment = await commentModel.findById({ _id: id }).exec();
+      return comment;
     },
-    posts: async (parent, args, { models: { commentModel }, me }, info) => {
+    comments: async (parent, args, { models: { commentModel }, me }, info) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const posts = await commentModel.find({ author: me.id }).exec();
-      return posts;
+      const comments = await commentModel.find().exec();
+      return comments;
     }
   },
   Mutation: {
-    createPost: async (
+    createComment: async (
       parent,
-      { title, subtitle },
+      { content, title },
       { models: { commentModel }, me },
       info
     ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await commentModel.create({
+      const comment = await commentModel.create({
+        content,
         title,
-        subtitle,
         author: me.id
       });
-      return post;
+      return comment;
     },
-    updatePost: async (
+    updateComment: async (
       parent,
-      { id, title, subtitle },
+      { id, content },
       { models: { commentModel }, me },
       info
     ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await commentModel.findByIdAndUpdate(
+      const comment = await commentModel.findByIdAndUpdate(
         id,
-        { $set: { title, subtitle } },
+        { $set: { content } },
         { new: true }
       );
-      return post;
+      return comment;
     },
-    deletePost: async (
+    deleteComment: async (
       parent,
       { id },
       { models: { commentModel }, me },
@@ -59,14 +59,14 @@ export default {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await commentModel.findByIdAndRemove({ _id: id }).exec();
-      if (!post) {
-        throw new Error('Error. Post not found!');
+      const comment = await commentModel.findByIdAndRemove({ _id: id }).exec();
+      if (!comment) {
+        throw new Error('Error. Comment not found!');
       }
-      return post;
+      return comment;
     }
   },
-  Post: {
+  Comment: {
     author: async ({ author }, args, { models: { userModel } }, info) => {
       const user = await userModel.findById({ _id: author }).exec();
       return user;

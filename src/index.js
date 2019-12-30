@@ -9,6 +9,7 @@ import resolvers from './resolvers';
 
 import userModel from './models/userModel';
 import bookModel from './models/bookModel';
+import commentModel from './models/commentModel';
 
 const app = express();
 app.use(cors());
@@ -36,7 +37,8 @@ const server = new ApolloServer({
         me,
         models: {
           userModel,
-          bookModel
+          bookModel,
+          commentModel
         }
       };
     }

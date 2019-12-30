@@ -33,6 +33,10 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: false // True
   },
+  comments: {
+    type: Array,
+    required: false
+  },
   stock: {
     type: Number,
     required: false
