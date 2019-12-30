@@ -1,5 +1,5 @@
 import userSchema from './userSchema';
-import postSchema from './postSchema';
+import bookSchema from './bookSchema';
 import { gql } from 'apollo-server';
 
 const linkSchema = gql`
@@ -11,4 +11,4 @@ const linkSchema = gql`
   }
 `;
 
-export default [linkSchema, userSchema, postSchema];
+export default [linkSchema, userSchema, bookSchema];

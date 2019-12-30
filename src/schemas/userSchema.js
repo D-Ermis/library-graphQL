@@ -4,7 +4,7 @@ export default gql`
   type User {
     id: ID!
     name: String!
-    posts: [Post!]!
+    books: [Book!]!
   }
 
   type Token {

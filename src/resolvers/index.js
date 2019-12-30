@@ -1,4 +1,4 @@
-import postResolver from './postResolvers';
+import bookResolver from './bookResolvers';
 import userResolver from './userResolvers';
 
-export default [userResolver, postResolver];
+export default [userResolver, bookResolver];

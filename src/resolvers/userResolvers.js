@@ -50,9 +50,9 @@ export default {
     }
   },
   User: {
-    posts: async ({ id }, args, { models: { postModel } }, info) => {
-      const posts = await postModel.find({ author: id }).exec();
-      return posts;
+    books: async ({ id }, args, { models: { bookModel } }, info) => {
+      const books = await bookModel.find({ author: id }).exec();
+      return books;
     }
   }
 };

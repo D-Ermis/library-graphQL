@@ -4,38 +4,38 @@ const isbnGet = require('node-isbn');
 
 export default {
   Query: {
-    post: async (parent, { id }, { models: { postModel }, me }, info) => {
+    book: async (parent, { id }, { models: { bookModel }, me }, info) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await postModel.findById({ _id: id }).exec();
-      return post;
+      const book = await bookModel.findById({ _id: id }).exec();
+      return book;
     },
-    posts: async (parent, args, { models: { postModel }, me }, info) => {
+    books: async (parent, args, { models: { bookModel }, me }, info) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const posts = await postModel.find({ author: me.id }).exec();
-      return posts;
+      const books = await bookModel.find({ author: me.id }).exec();
+      return books;
     }
   },
   Mutation: {
-    createPost: async (
+    createBook: async (
       parent,
       { title, subtitle },
-      { models: { postModel }, me },
+      { models: { bookModel }, me },
       info
     ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await postModel.create({ title, subtitle, author: me.id });
-      return post;
+      const book = await bookModel.create({ title, subtitle, author: me.id });
+      return book;
     },
-    createPostByISBN: async (
+    createBookByISBN: async (
       parent,
       { isbn },
-      { models: { postModel }, me },
+      { models: { bookModel }, me },
       info
     ) => {
       if (!me) {
@@ -45,50 +45,50 @@ export default {
         .resolve(isbn)
         .then(function(book) {
           console.log(book.title);
-          const post = postModel.create({
+          const book = bookModel.create({
             isbn,
             title: book.title,
             format: book.printType,
             language: book.language
           });
-          post.then(function(result) {
-            console.log(post); // "Some User token"
-            return post;
+          book.then(function(result) {
+            console.log(book); // "Some User token"
+            return book;
           });
         })
         .catch(function(err) {
           console.log('Book not found', err);
         });
     },
-    updatePost: async (
+    updateBook: async (
       parent,
       { id, title, subtitle },
-      { models: { postModel }, me },
+      { models: { bookModel }, me },
       info
     ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await postModel.findByIdAndUpdate(
+      const book = await bookModel.findByIdAndUpdate(
         id,
         { $set: { title, subtitle } },
         { new: true }
       );
       // $set: { title: title, subtitle: subtitle } can be simplified to $set: { title, subtitle }
-      return post;
+      return book;
     },
-    deletePost: async (parent, { id }, { models: { postModel }, me }, info) => {
+    deleteBook: async (parent, { id }, { models: { bookModel }, me }, info) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const post = await postModel.findByIdAndRemove({ _id: id }).exec();
-      if (!post) {
-        throw new Error('Error. Post not found!');
+      const book = await bookModel.findByIdAndRemove({ _id: id }).exec();
+      if (!book) {
+        throw new Error('Error. Book not found!');
       }
-      return post;
+      return book;
     }
   },
-  Post: {
+  Book: {
     author: async ({ author }, args, { models: { userModel } }, info) => {
       const user = await userModel.findById({ _id: author }).exec();
       return user;
