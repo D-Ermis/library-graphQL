@@ -13,13 +13,14 @@ export default gql`
     cover: String!
     stock: Int!
     isbn: String
-    comments: [comment]
+    comments: [Comment]
   }
 
   type Comment {
     id: ID!
     content: String!
     author: User!
+    title: String
     book: [Post]
   }
 
