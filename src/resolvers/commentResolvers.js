@@ -20,7 +20,7 @@ export default {
   Mutation: {
     createComment: async (
       parent,
-      { content, title },
+      { content, title, book },
       { models: { commentModel }, me },
       info
     ) => {
@@ -30,6 +30,7 @@ export default {
       const comment = await commentModel.create({
         content,
         title,
+        book: book,
         author: me.id
       });
       return comment;
@@ -70,6 +71,10 @@ export default {
     author: async ({ author }, args, { models: { userModel } }, info) => {
       const user = await userModel.findById({ _id: author }).exec();
       return user;
+    },
+    book: async ({ book }, args, { models: { bookModel } }, info) => {
+      const bookId = await bookModel.findById({ _id: book }).exec();
+      return bookId;
     }
   }
 };

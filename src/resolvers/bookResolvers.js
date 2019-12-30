@@ -45,15 +45,15 @@ export default {
         .resolve(isbn)
         .then(function(book) {
           console.log(book.title);
-          const book2 = bookModel.create({
+          const bookIsbn = bookModel.create({
             isbn,
             title: book.title,
             format: book.printType,
             language: book.language
           });
-          book2.then(function(result) {
-            console.log(book2); // "Some User token"
-            return book2;
+          bookIsbn.then(function(result) {
+            console.log(bookIsbn); // "Some User token"
+            return bookIsbn;
           });
         })
         .catch(function(err) {
@@ -89,9 +89,9 @@ export default {
     }
   },
   Book: {
-    author: async ({ author }, args, { models: { userModel } }, info) => {
-      const user = await userModel.findById({ _id: author }).exec();
-      return user;
-    }
+    author: ({ author }, args, { models: { userModel } }, info) =>
+      userModel.findById({ _id: author }).exec(),
+    comments: ({ comment }, args, { models: { commentModel } }, info) =>
+      commentModel.find({ _id: comment }).exec()
   }
 };

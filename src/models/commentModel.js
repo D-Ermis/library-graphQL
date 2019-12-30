@@ -9,6 +9,10 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  eval: {
+    type: Number,
+    required: false
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'

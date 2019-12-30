@@ -6,7 +6,8 @@ export default gql`
     content: String!
     author: User!
     title: String!
-    book: Book
+    book: Book!
+    eval: Int!
   }
 
   extend type Query {
@@ -15,7 +16,7 @@ export default gql`
   }
 
   extend type Mutation {
-    createComment(content: String!, title: String): Comment!
+    createComment(content: String!, title: String, book: ID!): Comment!
     updateComment(id: ID!, content: String!): Comment!
     deleteComment(id: ID!): Comment
   }
