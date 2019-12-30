@@ -13,6 +13,14 @@ export default gql`
     cover: String!
     stock: Int!
     isbn: String
+    comments: [comment]
+  }
+
+  type Comment {
+    id: ID!
+    content: String!
+    author: User!
+    book: [Post]
   }
 
   extend type Query {
