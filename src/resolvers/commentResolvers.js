@@ -68,13 +68,9 @@ export default {
     }
   },
   Comment: {
-    author: async ({ author }, args, { models: { userModel } }, info) => {
-      const user = await userModel.findById({ _id: author }).exec();
-      return user;
-    },
-    book: async ({ book }, args, { models: { bookModel } }, info) => {
-      const bookId = await bookModel.findById({ _id: book }).exec();
-      return bookId;
-    }
+    author: ({ author }, args, { models: { userModel } }, info) =>
+      userModel.findById({ _id: author }).exec(),
+    book: ({ book }, args, { models: { bookModel } }, info) =>
+      bookModel.findById({ _id: book }).exec()
   }
 };
