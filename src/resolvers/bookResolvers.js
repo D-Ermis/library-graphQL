@@ -45,15 +45,15 @@ export default {
         .resolve(isbn)
         .then(function(book) {
           console.log(book.title);
-          const book = bookModel.create({
+          const book2 = bookModel.create({
             isbn,
             title: book.title,
             format: book.printType,
             language: book.language
           });
-          book.then(function(result) {
-            console.log(book); // "Some User token"
-            return book;
+          book2.then(function(result) {
+            console.log(book2); // "Some User token"
+            return book2;
           });
         })
         .catch(function(err) {

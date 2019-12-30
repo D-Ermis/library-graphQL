@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt";
-import mongoose from "mongoose";
+import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -11,19 +11,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  posts: [
+  books: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "post"
+      ref: 'book'
     }
   ]
 });
 
-userSchema.pre("save", function() {
+userSchema.pre('save', function() {
   const hashedPassword = bcrypt.hashSync(this.password, 12);
   this.password = hashedPassword;
 });
 
-const user = mongoose.model("user", userSchema);
+const user = mongoose.model('user', userSchema);
 
 export default user;

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const postSchema = new mongoose.Schema({
+const bookSchema = new mongoose.Schema({
   isbn: {
     type: String,
     required: false
@@ -39,6 +39,6 @@ const postSchema = new mongoose.Schema({
   }
 });
 
-const post = mongoose.model('post', postSchema);
+const book = mongoose.model('book', bookSchema);
 
-export default post;
+export default book;

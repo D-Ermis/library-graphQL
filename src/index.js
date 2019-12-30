@@ -8,7 +8,7 @@ import schemas from './schemas';
 import resolvers from './resolvers';
 
 import userModel from './models/userModel';
-import postModel from './models/postModel';
+import bookModel from './models/bookModel';
 
 const app = express();
 app.use(cors());
@@ -36,7 +36,7 @@ const server = new ApolloServer({
         me,
         models: {
           userModel,
-          postModel
+          bookModel
         }
       };
     }
