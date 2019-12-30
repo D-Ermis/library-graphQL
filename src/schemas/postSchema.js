@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server';
 
 export default gql`
-  type Post {
+  type Book {
     id: ID!
     title: String!
     subtitle: String!
@@ -21,18 +21,18 @@ export default gql`
     content: String!
     author: User!
     title: String
-    book: [Post]
+    book: [Book]
   }
 
   extend type Query {
-    post(id: ID!): Post!
-    posts: [Post!]!
+    book(id: ID!): Book!
+    books: [Book!]!
   }
 
   extend type Mutation {
-    createPost(title: String!, subtitle: String!): Post!
-    createPostByISBN(isbn: String!): Post
-    updatePost(id: ID!, title: String!, subtitle: String!): Post!
-    deletePost(id: ID!): Post
+    createBook(title: String!, subtitle: String!): Book!
+    createBookByISBN(isbn: String!): Book
+    updateBook(id: ID!, title: String!, subtitle: String!): Book!
+    deleteBook(id: ID!): Book
   }
 `;
