@@ -91,7 +91,7 @@ export default {
   Book: {
     author: ({ author }, args, { models: { userModel } }, info) =>
       userModel.findById({ _id: author }).exec(),
-    comments: ({ comment }, args, { models: { commentModel } }, info) =>
-      commentModel.find({ _id: comment }).exec()
+    comments: ({ id }, args, { models: { commentModel } }, info) =>
+      commentModel.find({ book: id }).exec()
   }
 };
