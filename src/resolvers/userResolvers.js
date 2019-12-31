@@ -30,7 +30,7 @@ export default {
       }
 
       const token = jwt.sign({ id: user.id }, 'riddlemethis', {
-        expiresIn: 24 * 10 * 50
+        expiresIn: 24 * 10 * 500
       });
 
       return {
