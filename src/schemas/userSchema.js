@@ -5,6 +5,7 @@ export default gql`
     id: ID!
     name: String!
     books: [Book!]!
+    comments: [Comment]
   }
 
   type Token {
