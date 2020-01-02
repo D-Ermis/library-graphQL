@@ -22,14 +22,20 @@ export default {
   Mutation: {
     createBook: async (
       parent,
-      { title, subtitle },
+      { title, subtitle, stock },
       { models: { bookModel }, me },
       info
     ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const book = await bookModel.create({ title, subtitle, author: me.id });
+      const book = await bookModel.create({
+        title,
+        subtitle,
+        stock,
+        available: stock,
+        author: me.id
+      });
       return book;
     },
     createBookByISBN: async (

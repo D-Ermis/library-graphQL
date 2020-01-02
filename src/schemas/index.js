@@ -1,4 +1,5 @@
 import userSchema from './userSchema';
+import rentBookSchema from './rentBookSchema';
 import bookSchema from './bookSchema';
 import commentSchema from './commentSchema';
 import { gql } from 'apollo-server';
@@ -10,6 +11,13 @@ const linkSchema = gql`
   type Mutation {
     _: Boolean
   }
+  scalar Date
 `;
 
-export default [linkSchema, userSchema, bookSchema, commentSchema];
+export default [
+  linkSchema,
+  userSchema,
+  bookSchema,
+  commentSchema,
+  rentBookSchema
+];
