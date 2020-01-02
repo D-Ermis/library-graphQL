@@ -42,11 +42,29 @@ export default {
       // Get Current Date
       const startDate = Date.now();
 
+      // Check user rental count
+      const userRentCount = await userModel.findById({ _id: me.id });
+      if (!(userRentCount.rentCount < 5)) {
+        throw new Error('Rent limit exceeded MF!');
+      }
+
       // Check book availability
       const bookAvailable = await bookModel.findById({ _id: book });
-      if (!bookAvailable.available > 0) {
+      if (!(bookAvailable.available > 0)) {
         throw new Error('Book not available MF!');
       }
+
+      // Increment user rental count
+      const newRent = userRentCount.rentCount + 1;
+      console.log(newRent);
+
+      // Update User rental count
+      await userModel.findByIdAndUpdate(
+        me.id,
+        { $set: { rentCount: newRent } },
+        { new: true }
+      );
+
       // Decrement book counts
       const availability = bookAvailable.available - 1;
       const rentBook = await rentBookModel.create({
