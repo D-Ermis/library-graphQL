@@ -98,10 +98,20 @@ export default {
       // Increment book counts
       const availability = bookAvailable.available + 1;
 
+      // Check user rental count
+      const userRentCount = await userModel.findById({ _id: me.id });
+      // Decrement user rental count
+      const newRent = userRentCount.rentCount - 1;
       // Update availability
       await bookModel.findByIdAndUpdate(
         book,
         { $set: { available: availability } },
+        { new: true }
+      );
+      // Update User rental count
+      await userModel.findByIdAndUpdate(
+        me.id,
+        { $set: { rentCount: newRent } },
         { new: true }
       );
 
