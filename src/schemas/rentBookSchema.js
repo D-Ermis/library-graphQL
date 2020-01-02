@@ -16,7 +16,7 @@ export default gql`
 
   extend type Mutation {
     createRentBook(book: ID!): RentBook!
-    updateRentBook(id: ID!): RentBook!
+    updateRentBook(id: ID!, book: ID!): RentBook!
     deleteRentBook(id: ID!): RentBook
   }
 `;

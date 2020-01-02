@@ -60,25 +60,39 @@ export default {
         { $set: { available: availability } },
         { new: true }
       );
-
       return rentBook;
     },
-    updateBook: async (
+    updateRentBook: async (
       parent,
-      { id, title, subtitle },
-      { models: { bookModel }, me },
+      { id, book },
+      { models: { rentBookModel }, me },
       info
     ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const book = await bookModel.findByIdAndUpdate(
-        id,
-        { $set: { title, subtitle } },
+      // Get Current Date
+      const endDate = Date.now();
+
+      // Check book availability
+      const bookAvailable = await bookModel.findById({ _id: book });
+      // Increment book counts
+      const availability = bookAvailable.available + 1;
+
+      // Update availability
+      await bookModel.findByIdAndUpdate(
+        book,
+        { $set: { available: availability } },
         { new: true }
       );
-      // $set: { title: title, subtitle: subtitle } can be simplified to $set: { title, subtitle }
-      return book;
+
+      // Update availability
+      const rentBook = await rentBookModel.findByIdAndUpdate(
+        id,
+        { $set: { endDate } },
+        { new: true }
+      );
+      return rentBook;
     },
     deleteBook: async (parent, { id }, { models: { bookModel }, me }, info) => {
       if (!me) {
