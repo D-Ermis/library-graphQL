@@ -94,15 +94,22 @@ export default {
       );
       return rentBook;
     },
-    deleteBook: async (parent, { id }, { models: { bookModel }, me }, info) => {
+    deleteRentBook: async (
+      parent,
+      { id },
+      { models: { rentBookModel }, me },
+      info
+    ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
-      const book = await bookModel.findByIdAndRemove({ _id: id }).exec();
-      if (!book) {
-        throw new Error('Error. Book not found!');
+      const rentBook = await rentBookModel
+        .findByIdAndRemove({ _id: id })
+        .exec();
+      if (!rentBook) {
+        throw new Error('Error. RentBook not found!');
       }
-      return book;
+      return rentBook;
     }
   },
   RentBook: {
