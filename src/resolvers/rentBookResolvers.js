@@ -1,5 +1,6 @@
 import { AuthenticationError } from 'apollo-server';
 import bookModel from '../models/bookModel';
+import userModel from '../models/userModel';
 
 export default {
   Query: {

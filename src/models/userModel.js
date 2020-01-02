@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  rentCount: {
+    type: Number,
+    required: true
+  },
   books: [
     {
       type: mongoose.Schema.Types.ObjectId,

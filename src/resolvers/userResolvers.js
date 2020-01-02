@@ -45,7 +45,7 @@ export default {
       { models: { userModel } },
       info
     ) => {
-      const user = await userModel.create({ name, password });
+      const user = await userModel.create({ name, password, rentCount: 0 });
       return user;
     }
   },

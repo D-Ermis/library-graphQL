@@ -6,6 +6,7 @@ export default gql`
     name: String!
     books: [Book!]!
     comments: [Comment]
+    rentCount: Int!
   }
 
   type Token {
