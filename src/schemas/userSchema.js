@@ -7,6 +7,7 @@ export default gql`
     books: [Book!]!
     comments: [Comment]
     rentCount: Int!
+    oldestDateOfRental: [String]
   }
 
   type Token {
@@ -20,5 +21,6 @@ export default gql`
 
   extend type Mutation {
     createUser(name: String!, password: String!): User!
+    updateUser(id: ID!): User!
   }
 `;

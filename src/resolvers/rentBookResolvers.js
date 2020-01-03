@@ -1,6 +1,6 @@
 import { AuthenticationError } from 'apollo-server';
-import bookModel from '../models/bookModel';
-import userModel from '../models/userModel';
+
+const DATE_DIFF = require('date-diff-js');
 
 export default {
   Query: {
@@ -33,7 +33,7 @@ export default {
     createRentBook: async (
       parent,
       { book },
-      { models: { rentBookModel }, me },
+      { models: { rentBookModel, userModel, bookModel }, me },
       info
     ) => {
       if (!me) {
@@ -42,10 +42,19 @@ export default {
       // Get Current Date
       const startDate = Date.now();
 
-      // Check user rental count
-      const userRentCount = await userModel.findById({ _id: me.id });
-      if (!(userRentCount.rentCount < 5)) {
+      // Get user
+      const user = await userModel.findById({ _id: me.id });
+      console.log(user.rentCount);
+      if (!(user.rentCount < 5)) {
         throw new Error('Rent limit exceeded MF!');
+      }
+
+      let oldDateOfRental = user.oldestDateOfRental[0];
+      console.log('old date :', oldDateOfRental);
+      let diffMonths = DATE_DIFF(Date.now(), oldDateOfRental, 'm').output;
+      console.log('diff months :', diffMonths);
+      if (diffMonths > 0) {
+        throw new Error('Give the book back MF!');
       }
 
       // Check book availability
@@ -55,8 +64,7 @@ export default {
       }
 
       // Increment user rental count
-      const newRent = userRentCount.rentCount + 1;
-      console.log(newRent);
+      const newRent = user.rentCount + 1;
 
       // Update User rental count
       await userModel.findByIdAndUpdate(
@@ -67,11 +75,19 @@ export default {
 
       // Decrement book counts
       const availability = bookAvailable.available - 1;
+
+      //User Rent a Book
       const rentBook = await rentBookModel.create({
         book,
         author: me.id,
         startDate
       });
+
+      await userModel.findByIdAndUpdate(
+        me.id,
+        { $push: { oldestDateOfRental: rentBook.id } },
+        { new: true }
+      );
 
       // Update availability
       await bookModel.findByIdAndUpdate(
@@ -81,10 +97,11 @@ export default {
       );
       return rentBook;
     },
+
     updateRentBook: async (
       parent,
-      { id, book },
-      { models: { rentBookModel }, me },
+      { id },
+      { models: { rentBookModel, userModel, bookModel }, me },
       info
     ) => {
       if (!me) {
@@ -94,7 +111,10 @@ export default {
       const endDate = Date.now();
 
       // Check book availability
-      const bookAvailable = await bookModel.findById({ _id: book });
+      const bookID = await rentBookModel.findById({ _id: id });
+      const bookAvailable = await bookModel.findById({
+        _id: bookID.book
+      });
       // Increment book counts
       const availability = bookAvailable.available + 1;
 
@@ -114,6 +134,9 @@ export default {
         { $set: { rentCount: newRent } },
         { new: true }
       );
+      await userModel.findByIdAndUpdate(me.id, {
+        $pull: { oldestDateOfRental: id }
+      });
 
       // Update availability
       const rentBook = await rentBookModel.findByIdAndUpdate(

@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  oldestDateOfRental: { type: Array, required: false },
   books: [
     {
       type: mongoose.Schema.Types.ObjectId,
