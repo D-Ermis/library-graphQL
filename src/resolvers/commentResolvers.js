@@ -20,18 +20,20 @@ export default {
   Mutation: {
     createComment: async (
       parent,
-      { content, title, book },
+      { content, title, book, evaluation },
       { models: { commentModel }, me },
       info
     ) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
       }
+
       const comment = await commentModel.create({
         content,
         title,
-        book: book,
-        author: me.id
+        book,
+        author: me.id,
+        evaluation
       });
       return comment;
     },

@@ -9,8 +9,8 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  eval: {
-    type: Number,
+  evaluation: {
+    type: String,
     required: false
   },
   author: {
