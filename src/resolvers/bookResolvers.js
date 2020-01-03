@@ -38,34 +38,6 @@ export default {
       });
       return book;
     },
-    createBookByISBN: async (
-      parent,
-      { isbn },
-      { models: { bookModel }, me },
-      info
-    ) => {
-      if (!me) {
-        throw new AuthenticationError('You are not authenticated');
-      }
-      isbnGet
-        .resolve(isbn)
-        .then(function(book) {
-          console.log(book.title);
-          const bookIsbn = bookModel.create({
-            isbn,
-            title: book.title,
-            format: book.printType,
-            language: book.language
-          });
-          bookIsbn.then(function(result) {
-            console.log(bookIsbn); // "Some User token"
-            return bookIsbn;
-          });
-        })
-        .catch(function(err) {
-          console.log('Book not found', err);
-        });
-    },
     updateBook: async (
       parent,
       { id, title, subtitle },
@@ -80,7 +52,6 @@ export default {
         { $set: { title, subtitle } },
         { new: true }
       );
-      // $set: { title: title, subtitle: subtitle } can be simplified to $set: { title, subtitle }
       return book;
     },
     deleteBook: async (parent, { id }, { models: { bookModel }, me }, info) => {

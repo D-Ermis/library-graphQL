@@ -5,7 +5,6 @@ export default gql`
     id: ID!
     title: String!
     subtitle: String!
-    #content: String!
     author: User!
     editor: String!
     format: String!
@@ -24,7 +23,6 @@ export default gql`
 
   extend type Mutation {
     createBook(title: String!, subtitle: String!, stock: Int!): Book!
-    createBookByISBN(isbn: String!): Book
     updateBook(id: ID!, title: String!, subtitle: String!): Book!
     deleteBook(id: ID!): Book
   }

@@ -15,7 +15,7 @@ A Library Management API written in GraphQL, NodeJS, Express and JWT (Authentica
 - A user can borrow up to 5 books, for a month
 - If a book is not returned after the deadline, it will not be able to borrow a new book until it has returned it
 - Comments Management System (User reviews)
-- Encode the books via their ISBN number
+- Encode books via their ISBN number
 
 ### How to use
 
