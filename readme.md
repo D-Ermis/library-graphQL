@@ -19,11 +19,11 @@ A Library Management API written in GraphQL, NodeJS, Express and JWT (Authentica
 
 ### How to use
 
-### 0. Go to:
+##### 0. Go to:
 
 [Library Management System](https://libraryql.glitch.me/graphql)
 
-### 1. Login to be able to make requests:
+##### 1. Login to be able to make requests:
 
 ```graphql
 query {
@@ -33,7 +33,7 @@ query {
 }
 ```
 
-### 2. Insert generated Token in the HTTP HEADERS field:
+##### 2. Insert generated Token in the HTTP HEADERS field:
 
 ```graphql
 {
@@ -41,7 +41,7 @@ query {
 }
 ```
 
-### 3. Start making queries such as:
+##### 3. Start making queries such as:
 
 ```graphql
 query {
@@ -54,7 +54,7 @@ query {
 }
 ```
 
-### 4. Check the docs in the GraphQL Editor to see all available requests
+##### 4. Check the docs in the GraphQL Editor to see all available requests
 
 ### Built With
 
