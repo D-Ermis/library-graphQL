@@ -5,7 +5,7 @@
 
 ### Description
 
-A Library Management API written in GraphQL, NodeJS, Express and JWT (Authentication)
+A Library Management API written in GraphQL, NodeJS, Express, MongoDB and JWT (Authentication)
 
 ### What it does
 
@@ -62,3 +62,4 @@ query {
 - [NodeJS](https://nodejs.org/en/) - JavaScript runtime built on Chrome's V8 JavaScript engine
 - [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
 - [JWT](https://jwt.io/) - Token Signing/Verification
+- [MongoDB](https://www.mongodb.com/) - Document-based, distributed database
